@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yingke.demo">
+
+    <application>
+        <activity
+            android:name=".permission.FloatPermissionActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>
