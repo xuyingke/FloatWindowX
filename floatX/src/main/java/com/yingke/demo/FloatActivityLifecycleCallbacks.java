@@ -23,6 +23,7 @@ public class FloatActivityLifecycleCallbacks implements Application.ActivityLife
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
         FloatXLog.d("onActivityCreated" + " mActivityAmount= "
                 + mActivityAmount + " 页面 " + activity.getClass().getName());
+        FloatX.get().onActivityCreated(activity, savedInstanceState);
     }
 
     @Override

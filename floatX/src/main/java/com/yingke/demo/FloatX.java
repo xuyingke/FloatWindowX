@@ -2,7 +2,7 @@ package com.yingke.demo;
 
 import android.app.Activity;
 import android.app.Application;
-import android.view.View;
+import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -159,6 +159,39 @@ public class FloatX {
 
     public boolean isDebugEnabled() {
         return mDebug;
+    }
+
+    public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+        traverseFloatMap(new ViewControllerCallBack() {
+            @Override
+            public void call(@NonNull String floatFlag, @NonNull FloatViewController viewController) {
+                FloatConfig config = viewController.getFloatBuilder();
+                if (config == null) {
+                    return;
+                }
+                List<Class<?>> closeActivities = config.getCloseActivities();
+                if (FloatUtils.isEmpty(closeActivities)) {
+                    return;
+                }
+                try {
+                    for (int i = 0; i < closeActivities.size(); i++) {
+                        Class<?> aClass = closeActivities.get(i);
+                        if (aClass == null) {
+                            continue;
+                        }
+                        if (aClass.isInstance(activity)) {
+                            viewController.close();
+                            mViewControllerList.remove(floatFlag);
+                            return;
+                        }
+                    }
+                } catch (ConcurrentModificationException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
     }
 
 
