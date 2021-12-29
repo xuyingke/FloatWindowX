@@ -13,6 +13,7 @@ import com.yingke.demo.permission.PermissionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -160,14 +161,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View floatView = View.inflate(this.getApplicationContext(), R.layout.layout_float_view, null);
         TextView tvText = floatView.findViewById(R.id.tv_text);
         tvText.setText(flag);
-        // tvText.setLineHeight();
 
         floatView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FloatToastUtils.show("点击 " + System.currentTimeMillis());
+                int random = new Random().nextInt(100);
+                tvText.setText(flag + random);
             }
         });
+
 
         int x = (int) (Utils.getWidth() * 0.1F);
         int y = (int) (Utils.getHeight() * 0.1F);

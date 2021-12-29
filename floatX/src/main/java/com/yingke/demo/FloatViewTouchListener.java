@@ -26,7 +26,6 @@ public class FloatViewTouchListener implements View.OnTouchListener {
         mFloatViewHeight = mFloatConfig.getFloatViewHeight();
         mFloatView = mFloatConfig.getFloatView();
         mTouchActionUpListener = mFloatConfig.getTouchActionUpListener();
-
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -54,13 +53,14 @@ public class FloatViewTouchListener implements View.OnTouchListener {
             case MotionEvent.ACTION_UP:
                 upX = event.getRawX();
                 upY = event.getRawY();
-                mClick = (Math.abs(upX - downX) < 0) || (Math.abs(upY - downY) < 0);
+                mClick = (Math.abs(upX - downX) <= 0) || (Math.abs(upY - downY) <= 0);
                 handleAnimator(mClick, upX, upY);
                 break;
             default:
                 break;
         }
-        return mClick;
+        FloatXLog.d("FloatViewTouchListener" + "action= " + event.getAction() + " mClick= " + mClick);
+        return !mClick;
     }
 
     /**
