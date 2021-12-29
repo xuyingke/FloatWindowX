@@ -14,6 +14,7 @@ import com.yingke.demo.permission.PermissionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -157,9 +158,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void show(String flag, List<Class<?>> notDisplayActivities, List<Class<?>> mCloseActivities) {
         View floatView = View.inflate(this.getApplicationContext(), R.layout.layout_float_view, null);
-        floatView.setBackgroundColor(ContextCompat.getColor(this, R.color.black_333));
         TextView tvText = floatView.findViewById(R.id.tv_text);
         tvText.setText(flag);
+        // tvText.setLineHeight();
 
         floatView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +188,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setCloseActivities(mCloseActivities)
                 // 【默认为不展示】是否需要在桌面也显示浮窗
                 .setDesktopShow(mDesktopShow.isChecked());
+
+        // 松手时动画
+        floatConfig.setTouchActionUpListener(new TouchActionUpListener() {
+            @Override
+            public boolean actionUp(@Nullable FloatViewController controller, float rawX, float rawY) {
+                // 如果业务的松手时动画有自己的需求，就在这里返回 true。然后实现自己的动画就好。
+                // controller.updateViewLocation(x,y); 可以改变 view 的位置。其他的 api 能不调就别调
+                return false;
+            }
+        });
 
         FloatX.get()
                 .addFloat(flag, floatConfig)
