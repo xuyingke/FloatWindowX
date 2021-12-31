@@ -1,4 +1,4 @@
-package com.yingke.demo;
+package com.yingke.floatwindow;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

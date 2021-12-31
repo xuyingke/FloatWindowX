@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2016 Facishare Technology Co., Ltd. All Rights Reserved.
  */
-package com.yingke.demo.permission.rom;
+package com.yingke.floatwindow.permission.rom;
 
 import android.annotation.TargetApi;
 import android.app.AppOpsManager;
@@ -11,7 +11,8 @@ import android.os.Binder;
 import android.os.Build;
 import android.util.Log;
 
-import com.yingke.demo.permission.PermissionUtils;
+
+import com.yingke.floatwindow.permission.PermissionUtils;
 
 import java.lang.reflect.Method;
 

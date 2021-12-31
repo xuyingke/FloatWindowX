@@ -1,4 +1,4 @@
-package com.yingke.demo.permission.rom;
+package com.yingke.floatwindow.permission.rom;
 
 import android.annotation.TargetApi;
 import android.app.AppOpsManager;

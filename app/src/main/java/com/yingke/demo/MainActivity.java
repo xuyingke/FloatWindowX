@@ -10,7 +10,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.yingke.demo.permission.PermissionUtils;
+import com.yingke.floatwindow.FloatConfig;
+import com.yingke.floatwindow.FloatViewController;
+import com.yingke.floatwindow.FloatX;
+import com.yingke.floatwindow.TouchActionUpListener;
+import com.yingke.floatwindow.permission.PermissionUtils;
+import com.yingke.floatwindow.permission.rom.HuaweiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +23,6 @@ import java.util.Random;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

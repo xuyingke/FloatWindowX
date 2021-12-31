@@ -1,4 +1,4 @@
-package com.yingke.demo;
+package com.yingke.floatwindow;
 
 import android.content.Context;
 import android.graphics.PixelFormat;
@@ -6,6 +6,7 @@ import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+
 
 import androidx.annotation.NonNull;
 

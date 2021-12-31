@@ -1,4 +1,4 @@
-package com.yingke.demo.permission;
+package com.yingke.floatwindow.permission;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,12 +6,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 
-import com.yingke.demo.permission.rom.HuaweiUtils;
-import com.yingke.demo.permission.rom.MeizuUtils;
-import com.yingke.demo.permission.rom.MiuiUtils;
-import com.yingke.demo.permission.rom.OppoUtils;
-import com.yingke.demo.permission.rom.QikuUtils;
-import com.yingke.demo.permission.rom.RomUtils;
+import com.yingke.floatwindow.permission.rom.HuaweiUtils;
+import com.yingke.floatwindow.permission.rom.MeizuUtils;
+import com.yingke.floatwindow.permission.rom.MiuiUtils;
+import com.yingke.floatwindow.permission.rom.OppoUtils;
+import com.yingke.floatwindow.permission.rom.QikuUtils;
+import com.yingke.floatwindow.permission.rom.RomUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 
 /**
  * 代码来自
- * https://github.com/zhaozepeng/FloatWindowPermission/blob/906937c6fd1816354d27712a78a00b6a7c4a7e96/FloatWindowPermission/app/src/main/java/com/android/permission/FloatWindowManager.java#L89
+ * https://github.com/zhaozepeng/FloatWindowPermission
  */
 public class PermissionUtils {
 

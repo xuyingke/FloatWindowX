@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.yingke.floatwindow.FloatViewController;
+import com.yingke.floatwindow.FloatX;
+
 import java.util.List;
 
 public class TestMoveActivity extends AppCompatActivity {

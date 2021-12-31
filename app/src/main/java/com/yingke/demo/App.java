@@ -1,12 +1,8 @@
 package com.yingke.demo;
 
-import android.app.Activity;
 import android.app.Application;
-import android.os.Bundle;
-import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import com.yingke.floatwindow.FloatX;
 
 public class App extends Application {
 
