@@ -54,7 +54,22 @@ public class FloatX {
      */
     public void initSimple(@NonNull Application context) {
         mContext = context;
-        mViewControllerList = new ConcurrentHashMap<String, FloatViewController>(3);
+        mViewControllerList = new ConcurrentHashMap<String, FloatViewController>();
+    }
+
+    /**
+     * 提供给不想在 application 中做初始化代码的的强迫症
+     * 需要在第一次使用浮窗前调用
+     */
+    public void tryInitRear(@NonNull Application context) {
+        init(context);
+    }
+
+    /**
+     * 和 tryInitRear 差别是 lifecycle 由外部管理
+     */
+    public void tryInitSimpleRear(@NonNull Application context) {
+        initSimple(context);
     }
 
     private FloatX() {
@@ -76,7 +91,7 @@ public class FloatX {
 
     public void show(@NonNull String floatFlag) {
         if (mViewControllerList == null) {
-            // 需要调用 init
+            FloatXLog.w("得初始化啊，不初始化没法干活鸭~");
             return;
         }
         FloatViewController viewController = mViewControllerList.get(floatFlag);
@@ -195,68 +210,72 @@ public class FloatX {
     }
 
 
-    /**
-     * 有页面被唤醒了
-     *
-     * @param activity activity
-     */
-    public void onResumed(@NonNull Activity activity) {
-        traverseFloatMap(new ViewControllerCallBack() {
-            @Override
-            public void call(@NonNull String floatFlag, @NonNull FloatViewController viewController) {
-                FloatConfig config = viewController.getFloatBuilder();
-                if (config == null) {
-                    return;
+    public void onActivityResumed(int activityAmount, @NonNull Activity activity) {
+        if (activityAmount == 1) {
+            desktopBack(activity);
+        } else {
+            traverseFloatMap(new ViewControllerCallBack() {
+                @Override
+                public void call(@NonNull String floatFlag, @NonNull FloatViewController viewController) {
+                    FloatConfig config = viewController.getFloatBuilder();
+                    if (config == null) {
+                        return;
+                    }
+                    boolean needHidden = config.isNeedHidden(activity);
+                    if (needHidden) {
+                        viewController.hidden();
+                    }
                 }
-                boolean needHidden = config.isNeedHidden(activity);
-                if (needHidden) {
-                    viewController.hidden();
-                }
-            }
-        });
+            });
+        }
     }
+
 
     /**
      * 有 activity 要看不到了、退到后台了
      *
      * @param activity activity
      */
-    public void onActivityStopped(@NonNull Activity activity) {
-        traverseFloatMap(new ViewControllerCallBack() {
-            @Override
-            public void call(@NonNull String floatFlag, @NonNull FloatViewController viewController) {
-                FloatConfig floatBuilder = viewController.getFloatBuilder();
-                if (floatBuilder == null) {
-                    return;
-                }
-                boolean needClose = floatBuilder.isNeedClose(activity);
-                boolean needHidden = floatBuilder.isNeedHidden(activity);
-                if (needClose) {
-                    viewController.close();
-                    mViewControllerList.remove(floatFlag);
-                    return;
-                }
-
-                try {
-                    for (int i = 0; i < mVisibilityListeners.size(); i++) {
-                        OnVisibilityListener onVisibilityListener = mVisibilityListeners.get(i);
-                        if (onVisibilityListener == null) {
-                            continue;
-                        }
-                        boolean allowShow = onVisibilityListener.isShow(viewController);
-                        if (!allowShow) {
-                            needHidden = false;
-                            break;
-                        }
+    public void onActivityStopped(int activityAmount, @NonNull Activity activity) {
+        if (activityAmount == 0) {
+            desktop();
+        } else {
+            traverseFloatMap(new ViewControllerCallBack() {
+                @Override
+                public void call(@NonNull String floatFlag, @NonNull FloatViewController viewController) {
+                    FloatConfig floatBuilder = viewController.getFloatBuilder();
+                    if (floatBuilder == null) {
+                        return;
                     }
-                } catch (ConcurrentModificationException e) {
-                    e.printStackTrace();
+                    boolean needClose = floatBuilder.isNeedClose(activity);
+                    boolean needHidden = floatBuilder.isNeedHidden(activity);
+                    if (needClose) {
+                        viewController.close();
+                        mViewControllerList.remove(floatFlag);
+                        return;
+                    }
+
+                    try {
+                        for (int i = 0; i < mVisibilityListeners.size(); i++) {
+                            OnVisibilityListener onVisibilityListener = mVisibilityListeners.get(i);
+                            if (onVisibilityListener == null) {
+                                continue;
+                            }
+                            boolean allowShow = onVisibilityListener.isShow(viewController);
+                            if (!allowShow) {
+                                needHidden = false;
+                                break;
+                            }
+                        }
+                    } catch (ConcurrentModificationException e) {
+                        e.printStackTrace();
+                    }
+                    if (needHidden) {
+                        viewController.show();
+                    }
                 }
-                if (needHidden) {
-                    viewController.show();
-                }
-            }
-        });
+            });
+        }
     }
 
 

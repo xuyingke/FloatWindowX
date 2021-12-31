@@ -128,6 +128,30 @@
         android:textColor="#fff" />
 
 
+    <TextView
+        android:id="@+id/tv_secondary_page_show_float"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:background="#FF63B4E6"
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="在二级页面显示一个浮窗出来"
+        android:textColor="#fff" />
+
+
+    <TextView
+        android:id="@+id/tv_show_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:background="#FF63B4E6"
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="测试浮窗主动的隐藏和显示"
+        android:textColor="#fff" />
 
 
 </LinearLayout>

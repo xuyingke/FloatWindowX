@@ -2,4 +2,5 @@
     <string name="app_name">FloatWindowX</string>
     <string name="show_float">显示浮窗</string>
     <string name="close_float">关闭浮窗</string>
+    <string name="hint_float">隐藏浮窗</string>
 </resources>

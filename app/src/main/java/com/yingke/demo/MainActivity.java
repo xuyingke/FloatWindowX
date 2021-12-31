@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             permissionUtils.applyPermission(this);
         }
 
-
         mDesktopShow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         floatBuilder.setDesktopShow(isChecked);
                     }
                 }
-
             }
         });
 
@@ -89,6 +88,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mShow.setOnClickListener(this);
         mClose.setOnClickListener(this);
 
+        findViewById(R.id.tv_secondary_page_show_float)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SecondaryPageShowFloatActivity.launchActivity(MainActivity.this);
+                    }
+                });
+
+        findViewById(R.id.tv_show_hint)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ShowHintActivity.launchActivity(MainActivity.this);
+                    }
+                });
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -194,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 松手时动画
         floatConfig.setTouchActionUpListener(new TouchActionUpListener() {
             @Override
-            public boolean actionUp(@Nullable FloatViewController controller, float rawX, float rawY) {
+            public boolean actionUp(@Nullable FloatViewController controller, MotionEvent event) {
                 // 如果业务的松手时动画有自己的需求，就在这里返回 true。然后实现自己的动画就好。
                 // controller.updateViewLocation(x,y); 可以改变 view 的位置。其他的 api 能不调就别调
                 return false;

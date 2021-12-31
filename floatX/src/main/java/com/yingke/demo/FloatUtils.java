@@ -1,15 +1,20 @@
 package com.yingke.demo;
 
+import android.content.Context;
+import android.graphics.Point;
 import android.util.LongSparseArray;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
 import android.util.SparseLongArray;
+import android.view.Display;
+import android.view.WindowManager;
 
 import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import androidx.collection.SimpleArrayMap;
 
 public class FloatUtils {
@@ -53,5 +58,30 @@ public class FloatUtils {
             return true;
         }
         return false;
+    }
+
+
+
+
+    public static int getWidth(@NonNull Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display defaultDisplay = wm.getDefaultDisplay();
+        Point point = new Point();
+        defaultDisplay.getSize(point);
+        return point.x;
+    }
+
+    public static int getHeight(@NonNull Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display defaultDisplay = wm.getDefaultDisplay();
+        Point point = new Point();
+        defaultDisplay.getSize(point);
+        return point.y;
+    }
+
+
+    public static int dp2px(@NonNull Context context, final float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }
