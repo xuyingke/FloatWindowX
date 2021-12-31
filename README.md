@@ -65,3 +65,10 @@ floatConfig.setTouchActionUpListener(new TouchActionUpListener() {
 
 
 
+## License
+
+```
+请参看FloatWindowPermission和FloatWindow相关协议。
+项目最开始是从jiecao过来的，改着改着直接重构了。
+偶尔有一变量和方法名可能还有点jiaozi的影子，但是基本是一个新项目。
+```
