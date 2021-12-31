@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View mClose = findViewById(R.id.tv_close);
         mDesktopShow = findViewById(R.id.cb_desktop_show);
 
+        // 不要忽略这一步
         PermissionUtils permissionUtils = PermissionUtils.newInstance();
 
         boolean hasPermission = permissionUtils.checkPermission(this);
