@@ -9,6 +9,11 @@
 <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
 ```
 
+请在 Application 初始化
+
+```
+  FloatX.get().init(App.get());
+```
 
 
 #### 2. 最简单的使用
