@@ -2,21 +2,21 @@
 
 
 
-#### 1. 需要权限
+#### 需要权限
 
 ```java
 <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
 ```
 
-请在 Application 初始化
+#### 请在 Application 初始化
 
 ```
   FloatX.get().init(App.get());
 ```
 
 
-#### 2. 最简单的使用
+#### 最简单的使用
 
 ```java
 
@@ -42,7 +42,7 @@ FloatX.get()
 
 
 
-#### 3.高级一点
+#### 高级一点
 
 ```java
 // 不需要展示的页面(进入这些页面不需要展示，但是退出后需要继续展示)
@@ -64,7 +64,7 @@ floatConfig.setTouchActionUpListener(new TouchActionUpListener() {
 });
 ```
 
-直接使用可以下载项目根目录下的 arr 文件夹中的 aar 包。
+#### 直接使用可以下载项目根目录下的 arr 文件夹中的 aar 包。
 
 
 
@@ -73,5 +73,5 @@ floatConfig.setTouchActionUpListener(new TouchActionUpListener() {
 ## License
 
 ```
-相关权限代码分别来自两个项目，请参看FloatWindowPermission和FloatWindow相关协议。
+随便用
 ```
