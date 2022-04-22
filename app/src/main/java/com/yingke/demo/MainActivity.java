@@ -3,24 +3,31 @@ package com.yingke.demo;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yingke.floatwindow.FloatConfig;
 import com.yingke.floatwindow.FloatViewController;
 import com.yingke.floatwindow.FloatX;
 import com.yingke.floatwindow.TouchActionUpListener;
-import com.yingke.floatwindow.permission.PermissionUtils;
-import com.yingke.floatwindow.permission.rom.HuaweiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,15 +42,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         View mShow = findViewById(R.id.tv_show);
         View mClose = findViewById(R.id.tv_close);
+        View reqPer = findViewById(R.id.req_per);
         mDesktopShow = findViewById(R.id.cb_desktop_show);
 
         // 不要忽略这一步
-        PermissionUtils permissionUtils = PermissionUtils.newInstance();
+        ActivityResultLauncher<Intent> intentActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (Settings.canDrawOverlays(MainActivity.this)) {
+                        List<FloatViewController> viewControllerList = FloatX.get().getViewControllerList();
+                        if (viewControllerList != null) {
+                            for (int i = 0; i < viewControllerList.size(); i++) {
+                                String tag = viewControllerList.get(i).getFloatBuilder().getTag();
+                                FloatX.get().show(tag);
+                            }
+                        }
 
-        boolean hasPermission = permissionUtils.checkPermission(this);
-        if (!hasPermission) {
-            permissionUtils.applyPermission(this);
-        }
+                    }
+                }
+            }
+        });
+
+        reqPer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (!Settings.canDrawOverlays(MainActivity.this)) {
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                        intentActivityResultLauncher.launch(intent);
+                    }
+                }
+
+            }
+        });
 
         mDesktopShow.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
