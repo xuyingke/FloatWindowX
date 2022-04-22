@@ -59,7 +59,7 @@ floatConfig.setTouchActionUpListener(new TouchActionUpListener() {
 });
 ```
 
-
+直接使用可以下载项目根目录下的 arr 文件夹中的 aar 包。
 
 
 
