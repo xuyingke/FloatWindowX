@@ -37,7 +37,8 @@ public final class FloatConfig implements Serializable {
      */
     private boolean mDesktopShow;
 
-    public FloatConfig(@NonNull View floatView) {
+    public FloatConfig(@NonNull View floatView, @NonNull String tag) {
+        this.mTag = tag;
         setFloatView(floatView);
     }
 
@@ -45,10 +46,6 @@ public final class FloatConfig implements Serializable {
         return mTag;
     }
 
-    public FloatConfig setTag(String mTag) {
-        this.mTag = mTag;
-        return this;
-    }
 
     public View getFloatView() {
         return mFloatView;

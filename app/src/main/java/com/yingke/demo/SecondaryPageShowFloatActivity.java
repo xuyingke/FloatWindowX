@@ -48,8 +48,8 @@ public class SecondaryPageShowFloatActivity extends AppCompatActivity {
                         int x = (int) (Utils.getWidth() * 0.1F);
                         int y = (int) (Utils.getHeight() * 0.1F);
 
-                        FloatConfig floatConfig = new FloatConfig(floatView);
-                        floatConfig.setTag(flag)
+                        FloatConfig floatConfig = new FloatConfig(floatView,flag);
+                        floatConfig
                                 // 【必须】浮窗的宽
                                 .setFloatViewWidth(Utils.dp2px(100))
                                 // 【必须】浮窗的高
@@ -61,7 +61,7 @@ public class SecondaryPageShowFloatActivity extends AppCompatActivity {
 
 
                         FloatX.get()
-                                .addFloat(flag, floatConfig)
+                                .addFloat(floatConfig)
                                 .show(flag);
 
                     }

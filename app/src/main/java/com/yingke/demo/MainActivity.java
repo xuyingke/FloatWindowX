@@ -226,8 +226,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // int x = (int) (Utils.getWidth() * 0.1F);
         // int y = (int) (Utils.getHeight() * 0.1F);
 
-        FloatConfig floatConfig = new FloatConfig(floatView);
-        floatConfig.setTag(flag)
+        FloatConfig floatConfig = new FloatConfig(floatView, flag);
+        floatConfig
                 // 浮窗的宽
                 // .setFloatViewWidth(Utils.dp2px(100))
                 // 浮窗的高
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         FloatX.get()
-                .addFloat(flag, floatConfig)
+                .addFloat(floatConfig)
                 .show(flag);
     }
 

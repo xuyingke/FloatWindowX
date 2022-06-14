@@ -51,20 +51,20 @@ public class ShowHintActivity extends AppCompatActivity {
                         int x = (int) (Utils.getWidth() * 0.1F);
                         int y = (int) (Utils.getHeight() * 0.1F);
 
-                        FloatConfig floatConfig = new FloatConfig(floatView);
-                        floatConfig.setTag(flag)
-                                // 【必须】浮窗的宽
-                                .setFloatViewWidth(Utils.dp2px(100))
-                                // 【必须】浮窗的高
-                                .setFloatViewHeight(Utils.dp2px(100))
-                                // 【必须】相对屏幕的横坐标
-                                .setRawX(x)
-                                // 【必须】相对屏幕的纵坐标
-                                .setRawY(y);
+                        FloatConfig floatConfig = new FloatConfig(floatView, flag);
+                        // floatConfig
+                        //         // 【必须】浮窗的宽
+                        //         .setFloatViewWidth(Utils.dp2px(100))
+                        //         // 【必须】浮窗的高
+                        //         .setFloatViewHeight(Utils.dp2px(100))
+                        //         // 【必须】相对屏幕的横坐标
+                        //         .setRawX(x)
+                        //         // 【必须】相对屏幕的纵坐标
+                        //         .setRawY(y);
 
 
                         FloatX.get()
-                                .addFloat(flag, floatConfig)
+                                .addFloat(floatConfig)
                                 .show(flag);
                     }
                 });

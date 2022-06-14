@@ -77,16 +77,16 @@ public class FloatX {
         // empty
     }
 
-    public FloatX addFloat(@NonNull String floatFlag, @NonNull FloatConfig floatConfig) {
+    public FloatX addFloat(@NonNull FloatConfig floatConfig) {
         if (mViewControllerList == null) {
             return this;
         }
         checkConfig(floatConfig);
-        FloatViewController viewController = mViewControllerList.get(floatFlag);
+        FloatViewController viewController = mViewControllerList.get(floatConfig.getTag());
         if (viewController == null) {
             FloatViewController controller = new FloatViewController(mContext);
             controller.setFloatBuilder(floatConfig);
-            mViewControllerList.put(floatFlag, controller);
+            mViewControllerList.put(floatConfig.getTag(), controller);
         }
         return this;
     }
