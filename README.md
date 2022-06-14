@@ -1,6 +1,6 @@
 ## 开箱即用的 Android 悬浮窗  FloatWindowX 
 
-
+<video  height=498 width=510 src="mp4/floatWindowX.mp4"></video>
 
 #### 需要权限
 
