@@ -22,9 +22,9 @@
 
 // floatView 自己来构造就可
 FloatConfig floatConfig = new FloatConfig(floatView);
-floatConfig.setTag(flag);
+
 FloatX.get()
-       .addFloat(flag, floatConfig)
+       .addFloat(floatConfig)
        .show(flag);
 ```
 
