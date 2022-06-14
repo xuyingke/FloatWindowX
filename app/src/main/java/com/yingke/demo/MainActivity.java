@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yingke.floatwindow.FloatConfig;
+import com.yingke.floatwindow.FloatUtils;
 import com.yingke.floatwindow.FloatViewController;
 import com.yingke.floatwindow.FloatX;
 import com.yingke.floatwindow.TouchActionUpListener;
@@ -49,17 +50,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ActivityResultLauncher<Intent> intentActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (Settings.canDrawOverlays(MainActivity.this)) {
-                        List<FloatViewController> viewControllerList = FloatX.get().getViewControllerList();
-                        if (viewControllerList != null) {
-                            for (int i = 0; i < viewControllerList.size(); i++) {
-                                String tag = viewControllerList.get(i).getFloatBuilder().getTag();
-                                FloatX.get().show(tag);
-                            }
-                        }
-
-                    }
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    return;
+                }
+                if (!Settings.canDrawOverlays(MainActivity.this)) {
+                    return;
+                }
+                List<FloatViewController> viewControllerList = FloatX.get().getViewControllerList();
+                if (FloatUtils.isEmpty(viewControllerList)) {
+                    return;
+                }
+                for (int i = 0; i < viewControllerList.size(); i++) {
+                    String tag = viewControllerList.get(i).getFloatBuilder().getTag();
+                    FloatX.get().show(tag);
                 }
             }
         });
@@ -67,13 +70,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         reqPer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (!Settings.canDrawOverlays(MainActivity.this)) {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-                        intentActivityResultLauncher.launch(intent);
-                    }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(MainActivity.this)) {
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+                    intentActivityResultLauncher.launch(intent);
                 }
-
             }
         });
 
@@ -214,6 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvText.setText(flag);
 
         floatView.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 int random = new Random().nextInt(100);
@@ -222,19 +223,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-        int x = (int) (Utils.getWidth() * 0.1F);
-        int y = (int) (Utils.getHeight() * 0.1F);
+        // int x = (int) (Utils.getWidth() * 0.1F);
+        // int y = (int) (Utils.getHeight() * 0.1F);
 
         FloatConfig floatConfig = new FloatConfig(floatView);
         floatConfig.setTag(flag)
-                // 【必须】浮窗的宽
-                .setFloatViewWidth(Utils.dp2px(100))
-                // 【必须】浮窗的高
-                .setFloatViewHeight(Utils.dp2px(100))
-                // 【必须】相对屏幕的横坐标
-                .setRawX(x)
-                // 【必须】相对屏幕的纵坐标
-                .setRawY(y)
+                // 浮窗的宽
+                // .setFloatViewWidth(Utils.dp2px(100))
+                // 浮窗的高
+                // .setFloatViewHeight(Utils.dp2px(100))
+                // 相对屏幕的横坐标
+                // .setRawX(x)
+                // 相对屏幕的纵坐标
+                // .setRawY(y)
                 // 不需要展示的页面(进入这些页面不需要展示，但是退出后需要继续展示)
                 .setNotDisplayActivities(notDisplayActivities)
                 // 需要关闭的页面(一旦进入这些页面，就彻底销毁悬浮窗了。退出也不会展示，只有再次创建才可以)

@@ -3,6 +3,7 @@ package com.yingke.floatwindow;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -80,6 +81,7 @@ public class FloatX {
         if (mViewControllerList == null) {
             return this;
         }
+        checkConfig(floatConfig);
         FloatViewController viewController = mViewControllerList.get(floatFlag);
         if (viewController == null) {
             FloatViewController controller = new FloatViewController(mContext);
@@ -88,6 +90,7 @@ public class FloatX {
         }
         return this;
     }
+
 
     public void show(@NonNull String floatFlag) {
         if (mViewControllerList == null) {
@@ -123,6 +126,26 @@ public class FloatX {
             viewController.hidden();
         }
     }
+
+    private void checkConfig(@NonNull FloatConfig floatConfig) {
+        if (floatConfig.getFloatViewHeight() == 0 || floatConfig.getFloatViewWidth() == 0) {
+            View floatView = floatConfig.getFloatView();
+            floatView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            floatConfig.setFloatViewWidth(floatView.getMeasuredWidth());
+            floatConfig.setFloatViewHeight(floatView.getMeasuredHeight());
+        }
+        if (floatConfig.getRawX() == 0) {
+            // 默认右下角，屏幕高 70% 贴右边。
+            int width = FloatUtils.getWidth(floatConfig.getFloatView().getContext());
+            floatConfig.setRawX((int) (width - floatConfig.getFloatViewWidth()));
+        }
+        if (floatConfig.getRawY() == 0) {
+            // 默认右下角，屏幕高 70% 贴右边。
+            int height = FloatUtils.getHeight(floatConfig.getFloatView().getContext());
+            floatConfig.setRawY((int) (height * 0.7F));
+        }
+    }
+
 
     public FloatViewController getFloat(@NonNull String floatFlag) {
         if (mViewControllerList == null) {
