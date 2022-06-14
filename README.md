@@ -1,6 +1,6 @@
 ## 开箱即用的 Android 悬浮窗  FloatWindowX 
 
-![Image text](images/floatWindowX.png)
+<img src="images/floatWindowX.png" style="zoom:20%">
 
 #### 需要权限
 
