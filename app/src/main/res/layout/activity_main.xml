@@ -156,7 +156,7 @@
         android:gravity="center"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:text="测试浮窗主动的隐藏和显示"
+        android:text="测试浮窗主动的隐藏和显示(打开前先确保只有一个浮窗)"
         android:textColor="#fff" />
 
 
