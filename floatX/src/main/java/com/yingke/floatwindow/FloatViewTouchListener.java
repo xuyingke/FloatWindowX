@@ -22,7 +22,7 @@ public class FloatViewTouchListener implements View.OnTouchListener {
 
     private float mFloatViewWidth, mFloatViewHeight;
     private View mFloatView;
-    private boolean mClick = false;
+    private boolean mClick = true;
     private float upX, upY;
 
     private float mLastViewX, mLastViewY;
