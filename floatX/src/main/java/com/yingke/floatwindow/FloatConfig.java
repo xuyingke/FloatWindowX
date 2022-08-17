@@ -21,7 +21,7 @@ public final class FloatConfig implements Serializable {
     private int mFloatViewHeight;
     private List<Class<?>> mNotDisplayActivities;
     private List<Class<?>> mCloseActivities;
-    private TouchActionUpListener mTouchActionUpListener;
+    private TouchActionListener mTouchActionUpListener;
     /**
      * 是否可见。isHidden == true 或者 view 被 remove 都是不可见状态。
      */
@@ -115,11 +115,11 @@ public final class FloatConfig implements Serializable {
         this.mDesktopShow = desktopShow;
     }
 
-    public void setTouchActionUpListener(TouchActionUpListener listener) {
+    public void setTouchActionUpListener(TouchActionListener listener) {
         this.mTouchActionUpListener = listener;
     }
 
-    public TouchActionUpListener getTouchActionUpListener() {
+    public TouchActionListener getTouchActionUpListener() {
         return mTouchActionUpListener;
     }
 
