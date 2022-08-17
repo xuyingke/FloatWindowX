@@ -15,6 +15,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+/**
+ * 核心类。
+ * 多数方法不再处理多线程的情况。多线程的环境下注意调用安全。
+ */
 public class FloatX {
 
     private boolean mDebug;
@@ -23,19 +27,14 @@ public class FloatX {
 
     private Application mContext;
 
-    private static FloatX mInstance;
-
     private List<OnVisibilityListener> mVisibilityListeners = new ArrayList<>();
 
+    private static final class MInstanceHolder {
+        static final FloatX mInstance = new FloatX();
+    }
+
     public static FloatX get() {
-        if (mInstance == null) {
-            synchronized (FloatX.class) {
-                if (mInstance == null) {
-                    mInstance = new FloatX();
-                }
-            }
-        }
-        return mInstance;
+        return MInstanceHolder.mInstance;
     }
 
     /**
@@ -366,7 +365,7 @@ public class FloatX {
         });
     }
 
-    public synchronized void addVisibilityListeners(OnVisibilityListener listener) {
+    public void addVisibilityListeners(OnVisibilityListener listener) {
         try {
             mVisibilityListeners.add(listener);
         } catch (Exception e) {
@@ -374,7 +373,7 @@ public class FloatX {
         }
     }
 
-    public synchronized void removeVisibilityListeners(OnVisibilityListener listener) {
+    public void removeVisibilityListeners(OnVisibilityListener listener) {
         try {
             mVisibilityListeners.remove(listener);
         } catch (Exception e) {
