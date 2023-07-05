@@ -10,7 +10,6 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import com.yingke.floatwindow.FloatUtils.getHeight
 import com.yingke.floatwindow.FloatUtils.getWidth
-import com.yingke.floatwindow.FloatXLog
 import kotlin.math.abs
 
 class FloatViewTouchListener(private val mViewController: FloatViewController) : View.OnTouchListener {
@@ -104,11 +103,17 @@ class FloatViewTouchListener(private val mViewController: FloatViewController) :
         if (touchActionUpListener?.onTouchUp(mViewController, event) == true) {
             return
         }
+        checkEdge()
+    }
+
+    fun checkEdge() {
         val displayWidth = displayWidth
         val floatViewWidth = floatViewWidth
         val rawX = mViewController.floatBuilder.rawX
         val rawY = mViewController.floatBuilder.rawY
-        val endX: Float = if (rawX * 2 + view.width >
+        val width = if (mViewController.floatBuilder?.floatView?.width == null) 0
+        else mViewController.floatBuilder?.floatView?.width
+        val endX: Float = if (rawX * 2 + width!! >
             displayWidth
         ) displayWidth - floatViewWidth else 0F
         val mAnimator = ObjectAnimator.ofFloat(rawX.toFloat(), endX)
@@ -134,6 +139,5 @@ class FloatViewTouchListener(private val mViewController: FloatViewController) :
         })
         mAnimator.start()
     }
-
 
 }

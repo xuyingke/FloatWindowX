@@ -5,16 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.yingke.floatwindow.FloatConfig;
+import com.yingke.floatwindow.FloatViewController;
 import com.yingke.floatwindow.FloatX;
 
 import java.util.Random;
 
 public class SecondaryPageShowFloatActivity extends AppCompatActivity {
+    String flag = "二";
 
     public static void launchActivity(@NonNull Context context) {
         Intent intent = new Intent(context, SecondaryPageShowFloatActivity.class);
@@ -31,7 +34,7 @@ public class SecondaryPageShowFloatActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        String flag = "二";
+
                         View floatView = View.inflate(SecondaryPageShowFloatActivity.this, R.layout.layout_float_view, null);
                         TextView tvText = floatView.findViewById(R.id.tv_text);
                         tvText.setText(flag);
@@ -41,6 +44,13 @@ public class SecondaryPageShowFloatActivity extends AppCompatActivity {
                             public void onClick(View v) {
                                 int random = new Random().nextInt(100);
                                 tvText.setText(flag + random);
+
+
+                                int x = (int) (Utils.getWidth() * 0.1F);
+                                int y = (int) (Utils.getHeight() * 0.1F);
+
+                                FloatX.get().getFloat(flag).updateViewLocation(Utils.getWidth() - Utils.dp2px(50)
+                                        , Utils.getHeight() - Utils.dp2px(50));
                             }
                         });
 
@@ -48,7 +58,7 @@ public class SecondaryPageShowFloatActivity extends AppCompatActivity {
                         int x = (int) (Utils.getWidth() * 0.1F);
                         int y = (int) (Utils.getHeight() * 0.1F);
 
-                        FloatConfig floatConfig = new FloatConfig(floatView,flag);
+                        FloatConfig floatConfig = new FloatConfig(floatView, flag);
                         floatConfig
                                 // 【必须】浮窗的宽
                                 .setFloatViewWidth(Utils.dp2px(100))
@@ -68,5 +78,10 @@ public class SecondaryPageShowFloatActivity extends AppCompatActivity {
                 });
     }
 
-
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        FloatX.get().close(flag);
+        findViewById(R.id.tv_show).performClick();
+    }
 }

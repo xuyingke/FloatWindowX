@@ -145,7 +145,7 @@ public class FloatX {
         }
     }
 
-
+    @Nullable
     public FloatViewController getFloat(@NonNull String floatFlag) {
         if (mViewControllerList == null) {
             return null;
@@ -225,8 +225,6 @@ public class FloatX {
                 } catch (ConcurrentModificationException e) {
                     e.printStackTrace();
                 }
-
-
             }
         });
     }
@@ -338,10 +336,7 @@ public class FloatX {
                 // 如果从桌面回来第一个展示的 activity 是需要隐藏的，那就不能展示出来浮窗
                 boolean needHidden = config.isNeedHidden(activity);
 
-                boolean show = false;
-                if (!desktopShow && !needHidden) {
-                    show = true;
-                }
+                boolean show = !desktopShow && !needHidden;
                 try {
                     for (int i = 0; i < mVisibilityListeners.size(); i++) {
                         OnVisibilityListener onVisibilityListener = mVisibilityListeners.get(i);

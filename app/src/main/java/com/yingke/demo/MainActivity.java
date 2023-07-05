@@ -19,7 +19,6 @@ import com.yingke.floatwindow.FloatViewController;
 import com.yingke.floatwindow.FloatX;
 import com.yingke.floatwindow.FloatXLog;
 import com.yingke.floatwindow.SimpleTouchActionListener;
-import com.yingke.floatwindow.TouchActionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -203,6 +202,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             });
         }
 
+        // 开启无权限模式
+        floatConfig.setOpenNotPermissionMode(true);
 
         FloatX.get()
                 .addFloat(floatConfig)

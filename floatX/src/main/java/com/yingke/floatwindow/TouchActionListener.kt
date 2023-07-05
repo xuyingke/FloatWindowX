@@ -3,7 +3,7 @@ package com.yingke.floatwindow
 import android.view.MotionEvent
 
 /**
- * 对浮窗的手势行为进行回调，以方便业务层做一些类似埋点的处理。
+ * 对浮窗的手势行为进行回调，以方便业务层做其他的处理，比如埋点。
  */
 interface TouchActionListener {
 
